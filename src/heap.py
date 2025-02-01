@@ -48,7 +48,7 @@ For this reason, heapification is always done from bottom-up.
 NOTE: You also cannot simply float down all nodes starting from the root, as
 this does not guarantee the heap property will be maintained. Instead, the root
 node must be removed and floated up to its correct position in the heap from
-the bottom, which is always a O(log n) operation.
+the bottom, which is always an O(log n) operation.
 
 k-way Merge
 -----------
@@ -64,7 +64,7 @@ always the root of the max-heap. To retrieve all k smallest elements, simply
 return the sorted heap.
 """
 
-from collections.abc import Iterator
+from collections.abc import Iterable, Iterator
 from typing import Protocol, TypeVar
 
 
@@ -328,7 +328,7 @@ def _is_leaf(i: int, n: int) -> bool:
     return i >= n // 2
 
 
-def k_way_merge(*iterables: list[T]) -> Iterator[T]:
+def k_way_merge(*iterables: Iterable[T]) -> Iterator[T]:
     """
     k-way merge is a merge algorithm that, as the name suggests, merges k
     sorted lists into a single sorted list. It can be efficiently solved in
@@ -342,8 +342,8 @@ def k_way_merge(*iterables: list[T]) -> Iterator[T]:
     # that associates it with an iterable. This is required to resolve tuple
     # comparisons where the values of nodes are the same. When Python compares
     # tuples, it compares elements in order until it finds a difference. Using
-    # an index, nodes from earlier iterables take precedence over nodes from
-    # latter iterables.
+    # an index, a node from a list with a lower index will take precedence over
+    # a node with a higher index.
     heap: list[tuple[T, int, Iterator[T]]] = []
     for i, it in enumerate(map(iter, iterables)):
         try:
@@ -353,14 +353,14 @@ def k_way_merge(*iterables: list[T]) -> Iterator[T]:
             pass
     heapify(heap)
 
-    # For each selection, we retrieve the smallest value from the heap
+    # For each selection, we retrieve the smallest element from the heap
     # (heap[0]), which contains a value and an iterator. The value is yielded,
     # and a new value is retrieved from the iterator with a call to `next()`.
     # The root node is removed from the heap and replaced with the next element
-    # from the list from which it was taken. If `next()` raises a StopIteration
-    # exception, the iterator has been exhausted meaning the previous element
-    # was the final element from the iterable. If this is the case, we simply
-    # delete the smallest value from the heap.
+    # from the list from which the node was taken. If `next()` raises a
+    # StopIteration exception, the iterator has been exhausted meaning the
+    # previous element was the final element from the iterable. If this is the
+    # case, we simply delete the smallest element from the heap.
     while heap:
         try:
             e, i, it = heap[0]

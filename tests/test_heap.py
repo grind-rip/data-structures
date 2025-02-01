@@ -1,6 +1,6 @@
 """
 Heap
---------
+----
 """
 
 import itertools
@@ -88,10 +88,10 @@ class TestHeap(TestCase):
         Test kth_smallest solution.
         """
         for _ in range(self.x):
-            # Pick a 'k' within the range of 'l' [1:self.n], inclusive. k cannot be
-            # 0. k represents the kth element in a one-based array. To get the kth
-            # element for a zero-based array, use k - 1.
-            self.n = 1
+            # Pick a 'k' within the range of 'l' [1:self.n], inclusive. k
+            # cannot be 0. k represents the kth element in a one-based array.
+            # To get the kth element for a zero-based array, use k - 1.
+            self.n = 1000
             k = random.randint(1, self.n)
             l = create_random_array(n=self.n, a=self.a, b=self.b)
             exp = sorted(l.copy())[k - 1]
@@ -117,8 +117,8 @@ def create_sorted_array(n: int, a: int, b: int) -> list[int]:
 
 def create_k_sorted_arrays(k: int, a: int, b: int) -> list[list[int]]:
     """
-    Creates k sorted array of size between `a` and `b` with integers between
-    `a` and `b`, both inclusive.
+    Creates k sorted arrays of random size between `a` and `b` with integers
+    between `a` and `b`, both inclusive.
     """
     n = random.randint(a, b)
     return [create_sorted_array(n=n, a=a, b=b) for _ in range(k)]
