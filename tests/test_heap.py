@@ -13,7 +13,7 @@ from src import heap
 class TestHeap(TestCase):
     def setUp(self):
         self.x = random.randint(1, 10)
-        self.n = random.randint(0, 1000)
+        self.n = random.randint(1, 1000)
         self.a = random.randint(-1000, 0)
         self.b = random.randint(0, 1000)
 

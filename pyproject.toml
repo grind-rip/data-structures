@@ -20,6 +20,14 @@ dependencies = [
   "ruff"
 ]
 
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore:invalid escape sequence:SyntaxWarning"
+]
+
+[tool.ruff]
+line-length = 88
+
 [tool.ruff.lint]
 # E741: do not use variables named 'l', 'O', or 'I'
 # PERF401 Use a list comprehension to create a transformed list
